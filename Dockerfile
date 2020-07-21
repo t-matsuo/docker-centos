@@ -13,13 +13,15 @@ RUN yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute
     yum --enablerepo=ius-archive install -y git224 && \
     yum clean all
 
+ENV HOME=/root
+
 RUN rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
     echo "alias k='kubectl'" >> /root/.bashrc && \
     echo "alias ssh='ssh -o ServerAliveInterval=20 -o ServerAliveCountMax=20'" >> /root/.bashrc && \
     echo "complete -o default -F __start_kubectl k" >> /root/.bashrc && \
-    echo -e 'if [ "$TERM" == "screen" ]; then\n   export PS1='\''[\u@\h:$WINDOW:\w]\$ '\''\nelse\n   export PS1='\''[\u@\h:\w]\$ '\''\n   cd $HOME\nfi' >> /root/.bashrc && \
+    echo -e 'echo $TERM | grep -q "^screen"\nif [ $? -eq 0 ]; then\n   export PS1='\''[\u@\h:$WINDOW:\w]\$ '\''\nelse\n   export PS1='\''[\u@\h:\w]\$ '\''\n   cd $HOME\nfi' >> /root/.bashrc && \
     echo "escape ^Oo" >> /root/.screenrc && \
     echo 'shell "/bin/bash"' >> /root/.screenrc && \
     echo "set background=dark" >> /root/.vimrc && \
