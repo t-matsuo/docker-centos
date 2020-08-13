@@ -9,7 +9,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     yum -y update && yum -y install epel-release && \
     rpm -ivh https://repo.ius.io/ius-release-el7.rpm
 
-RUN yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils kubectl jq stress-ng expect && \
+RUN yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils kubectl jq stress-ng expect psmisc && \
     yum --enablerepo=ius-archive install -y git224 && \
     yum clean all
 
