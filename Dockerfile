@@ -21,6 +21,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     chmod 755 /usr/local/bin/kubens && \
     curl -L -o /etc/bash_completion.d/kubectx https://github.com/ahmetb/kubectx/raw/master/completion/kubectx.bash && \
     curl -L -o /etc/bash_completion.d/kubens https://github.com/ahmetb/kubectx/raw/master/completion/kubens.bash && \
+    curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v3.0.1 bash && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
