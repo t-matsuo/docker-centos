@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "------------------------------"
+echo "DOCKER_NETWORK = ${DOCKER_NETWORK:=172.18.0.0/16}"
+echo "DOCKER_NETWORK_MTU = ${DOCKER_NETWORK_MTU:=1400}"
+echo "DOCKER_NETWORK_EXTRA_OPTIONS = $DOCKER_NETWORK_EXTRA_OPTIONS"
+echo "CLUSTER_NAME = ${CLUSTER_NAME:=cluster}"
+echo "CLUSTER_CIDR = ${CLUSTER_CIDR:=10.45.0.0/16}"
+echo "SERVICE_CIDER = ${SERVICE_CIDER:=10.46.0.0/16}"
+echo "MASTERS = ${MASTERS:=1}"
+echo "WORKERS = ${WORKERS:=2}"
+echo "K3D_EXTRA_OPTIONS = $K3D_EXTRA_OPTIONS"
+echo "------------------------------"
+echo
+
+docker info > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "ERROR: Cannot connect docker"
+    exit 1
+fi
+
+docker network ls | tr -s " " | cut -d " " -f 2 | grep -q -w $CLUSTER_NAME
+if [ $? -eq 0 ]; then
+    echo "ERROR: docker network $CLUSTER_NAME already exists"
+    exit 1
+fi
+
+echo "creating docker network"
+docker network create --subnet $DOCKER_NETWORK --attachable -o "com.docker.network.driver.mtu=$DOCKER_NETWORK_MTU" $DOCKER_NETWORK_EXTRA_OPTIONS $CLUSTER_NAME
+if [ $? -ne 0 ]; then
+    echo "ERROR: creating docker network $CLUSTER_NAME failed"
+    exit 1
+fi
+
+echo "creating k8s using k3d"
+k3d cluster create -s $MASTERS -a $WORKERS $CLUSTER_NAME --network $CLUSTER_NAME --k3s-server-arg --cluster-cidr="$CLUSTER_CIDR" --k3s-server-arg --service-cidr="$SERVICE_CIDER" $K3D_EXTRA_OPTIONS
+if [ $? -ne 0 ]; then
+    echo "ERROR: creating k8s failed"
+    exit 1
+fi
+
