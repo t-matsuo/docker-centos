@@ -35,6 +35,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo "escape ^Oo" >> /root/.screenrc && \
     echo 'shell "/bin/bash"' >> /root/.screenrc && \
     echo "set background=dark" >> /root/.vimrc && \
+    echo "set pastetoggle=<f11>" >> /root/.vimrc && \
+    echo "set tabstop=4" >> /root/.vimrc && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     kubectl completion bash >> /etc/bash_completion.d/kubectl && \
     mkdir /root/.kube && \
