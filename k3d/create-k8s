@@ -1,14 +1,14 @@
 #!/bin/bash
 
 echo "------------------------------"
-echo "DOCKER_NETWORK = ${DOCKER_NETWORK:=172.18.0.0/16}"
+echo "DOCKER_NETWORK = ${DOCKER_NETWORK:=172.19.0.0/16}"
 echo "DOCKER_NETWORK_MTU = ${DOCKER_NETWORK_MTU:=1400}"
 echo "DOCKER_NETWORK_EXTRA_OPTIONS = $DOCKER_NETWORK_EXTRA_OPTIONS"
 echo "CLUSTER_NAME = ${CLUSTER_NAME:=cluster}"
 echo "CLUSTER_CIDR = ${CLUSTER_CIDR:=10.45.0.0/16}"
 echo "SERVICE_CIDER = ${SERVICE_CIDER:=10.46.0.0/16}"
 echo "MASTERS = ${MASTERS:=1}"
-echo "WORKERS = ${WORKERS:=2}"
+echo "WORKERS = ${WORKERS:=1}"
 echo "K3D_EXTRA_OPTIONS = $K3D_EXTRA_OPTIONS"
 echo "------------------------------"
 echo
