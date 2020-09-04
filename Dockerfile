@@ -16,8 +16,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils kubectl jq stress-ng expect psmisc openssl && \
     yum --enablerepo=ius-archive install -y git224 && \
     curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash && \
-    curl -L -o /usr/local/bin/kubectx https://github.com/ahmetb/kubectx/releases/download/v0.9.1/kubectx && \
-    curl -L -o /usr/local/bin/kubens https://github.com/ahmetb/kubectx/releases/download/v0.9.1/kubens && \
+    curl -L -o /usr/local/bin/kubectx https://github.com/ahmetb/kubectx/releases/download/`curl -s https://api.github.com/repos/ahmetb/kubectx/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubectx && \
+    curl -L -o /usr/local/bin/kubens https://github.com/ahmetb/kubectx/releases/download/`curl -s https://api.github.com/repos/ahmetb/kubectx/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubens && \
     chmod 755 /usr/local/bin/kubectx && \
     chmod 755 /usr/local/bin/kubens && \
     curl -L -o /etc/bash_completion.d/kubectx https://github.com/ahmetb/kubectx/raw/master/completion/kubectx.bash && \
