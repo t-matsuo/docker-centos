@@ -36,6 +36,9 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     chmod 755 /usr/local/bin/k9s && \
     curl -L "https://github.com/wercker/stern/releases/download/`curl -s https://api.github.com/repos/wercker/stern/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/stern_linux_amd64" -o /usr/local/bin/stern && \
     chmod 755 /usr/local/bin/stern && \
+    curl -L "https://github.com/instrumenta/kubeval/releases/download/`curl -s https://api.github.com/repos/instrumenta/kubeval/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubeval-linux-amd64.tar.gz" -o /tmp/kubeval.tar.gz && \
+    tar zxvf /tmp/kubeval.tar.gz -O kubeval > /usr/local/bin/kubeval && \
+    chmod 755 /usr/local/bin/kubeval && \
     rm -f /tmp/k9s.tar.gz && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
