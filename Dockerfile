@@ -34,6 +34,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     curl -L "https://github.com/derailed/k9s/releases/download/`curl -s https://api.github.com/repos/derailed/k9s/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/k9s_Linux_x86_64.tar.gz" -o /tmp/k9s.tar.gz && \
     tar zxvf /tmp/k9s.tar.gz -O k9s > /usr/local/bin/k9s && \
     chmod 755 /usr/local/bin/k9s && \
+    curl -L "https://github.com/wercker/stern/releases/download/`curl -s https://api.github.com/repos/wercker/stern/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/stern_linux_amd64" -o /usr/local/bin/stern && \
+    chmod 755 /usr/local/bin/stern && \
     rm -f /tmp/k9s.tar.gz && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
