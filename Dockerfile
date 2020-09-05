@@ -39,6 +39,9 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     curl -L "https://github.com/instrumenta/kubeval/releases/download/`curl -s https://api.github.com/repos/instrumenta/kubeval/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubeval-linux-amd64.tar.gz" -o /tmp/kubeval.tar.gz && \
     tar zxvf /tmp/kubeval.tar.gz -O kubeval > /usr/local/bin/kubeval && \
     chmod 755 /usr/local/bin/kubeval && \
+    curl -L "https://github.com/zegl/kube-score/releases/download/`curl -s https://api.github.com/repos/zegl/kube-score/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kube-score_`curl -s https://api.github.com/repos/zegl/kube-score/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g' | sed 's/v//g'`_linux_amd64" -o /usr/local/bin/kube-score && \
+    chmod 755 /usr/local/bin/kube-score && \
+    curl -L https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o /usr/local/bin/kube-ps1.sh && \
     rm -f /tmp/k9s.tar.gz && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
@@ -46,7 +49,9 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo "alias k='kubectl'" >> /root/.bashrc && \
     echo "alias ssh='ssh -o ServerAliveInterval=20 -o ServerAliveCountMax=20'" >> /root/.bashrc && \
     echo "complete -o default -F __start_kubectl k" >> /root/.bashrc && \
-    echo -e 'echo $TERM | grep -q "^screen"\nif [ $? -eq 0 ]; then\n   export PS1='\''[\u@\h:$WINDOW:\w]\$ '\''\nelse\n   export PS1='\''[\u@\h:\w]\$ '\''\n   cd $HOME\nfi' >> /root/.bashrc && \
+    echo "source /usr/local/bin/kube-ps1.sh" >> /root/.bashrc && \
+    echo -e 'echo $TERM | grep -q "^screen"\nif [ $? -eq 0 ]; then\n   export PS1='\''[\u@\h:$WINDOW:\w]$(kube_ps1)\$ '\''\nelse\n   export PS1='\''[\u@\h:\w]$(kube_ps1)\$ '\''\n   cd $HOME\nfi' >> /root/.bashrc && \
+    echo "kubeoff" >> /root/.bashrc && \
     echo "escape ^Oo" >> /root/.screenrc && \
     echo 'shell "/bin/bash"' >> /root/.screenrc && \
     echo "set background=dark" >> /root/.vimrc && \
