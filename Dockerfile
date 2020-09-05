@@ -25,6 +25,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v3.0.1 bash && \
     curl -L "https://github.com/docker/compose/releases/download/`curl -s https://api.github.com/repos/docker/compose/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     chmod 755 /usr/local/bin/docker-compose && \
+    curl -L  "https://github.com/hadolint/hadolint/releases/download/`curl -s https://api.github.com/repos/hadolint/hadolint/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint && \
+    chmod 755 /usr/local/bin/hadolint && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
