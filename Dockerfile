@@ -27,6 +27,10 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     chmod 755 /usr/local/bin/docker-compose && \
     curl -L  "https://github.com/hadolint/hadolint/releases/download/`curl -s https://api.github.com/repos/hadolint/hadolint/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint && \
     chmod 755 /usr/local/bin/hadolint && \
+    curl -L "https://github.com/skanehira/docui/releases/download/`curl -s https://api.github.com/repos/skanehira/docui/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/docui_`curl -s https://api.github.com/repos/skanehira/docui/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`_Linux_x86_64.tar.gz" -o /tmp/docui.tar.gz && \
+    tar zxvf /tmp/docui.tar.gz -O docui > /usr/local/bin/docui && \
+    chmod 755 /usr/local/bin/docui && \
+    rm -f /tmp/docui.tar.gz && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
