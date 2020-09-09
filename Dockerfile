@@ -40,14 +40,14 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     curl -L "https://github.com/instrumenta/kubeval/releases/download/`curl -s https://api.github.com/repos/instrumenta/kubeval/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubeval-linux-amd64.tar.gz" -o /tmp/kubeval.tar.gz && \
     tar zxvf /tmp/kubeval.tar.gz -O kubeval > /usr/local/bin/kubeval && \
     chmod 755 /usr/local/bin/kubeval && \
-    rm /tmp/kubeval.tar.gz && \
+    rm -f /tmp/kubeval.tar.gz && \
     curl -L "https://github.com/zegl/kube-score/releases/download/`curl -s https://api.github.com/repos/zegl/kube-score/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kube-score_`curl -s https://api.github.com/repos/zegl/kube-score/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g' | sed 's/v//g'`_linux_amd64" -o /usr/local/bin/kube-score && \
     chmod 755 /usr/local/bin/kube-score && \
     curl -L https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o /usr/local/bin/kube-ps1.sh && \
     curl -L "https://github.com/google/go-containerregistry/releases/download/`curl -s https://api.github.com/repos/google/go-containerregistry/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/go-containerregistry_Linux_x86_64.tar.gz"  -o /tmp/crane.tar.gz && \
     tar zxvf /tmp/crane.tar.gz -O crane > /usr/local/bin/crane && \
     chmod 755 /usr/local/bin/crane && \
-    rm /tmp/crane.tar.gz && \
+    rm -f /tmp/crane.tar.gz && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
