@@ -5,6 +5,7 @@ ENV HOME=/root
 COPY ./kubernetes.repo /etc/yum.repos.d/
 COPY ./fzf /usr/local/bin/fzf
 COPY ./k3d/* /usr/local/bin/
+COPY ./pause /usr/local/bin/
 
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo && \
@@ -68,4 +69,4 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     mkdir /root/.kube && \
     yum clean all
 
-CMD ["/bin/bash"]
+CMD ["/usr/local/bin/pause"]
