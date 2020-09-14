@@ -20,15 +20,6 @@ fi
 
 echo "deleting k8s using k3d"
 k3d cluster delete $CLUSTER_NAME
-if [ $? -ne 0 ]; then
-    echo "ERROR: deleting k8s failed"
-    exit 1
-fi
-
 echo "deleting docker network"
 docker network rm $CLUSTER_NAME
-if [ $? -ne 0 ]; then
-    echo "ERROR: deleting docker network $CLUSTER_NAME failed"
-    exit 1
-fi
 
