@@ -15,7 +15,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     yum -y update && yum -y install epel-release && \
     rpm -ivh https://repo.ius.io/ius-release-el7.rpm && \
     rpm -ivh https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-19.03.9-3.el7.x86_64.rpm && \
-    yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils kubectl jq stress-ng expect psmisc openssl && \
+    yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils kubectl jq stress-ng expect psmisc openssl kbd && \
     yum --enablerepo=ius-archive install -y git224 && \
     curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash && \
     curl -L -o /usr/local/bin/kubectx https://github.com/ahmetb/kubectx/releases/download/`curl -s https://api.github.com/repos/ahmetb/kubectx/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubectx && \
