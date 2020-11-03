@@ -1,6 +1,7 @@
 FROM library/centos:7
 
-ENV HOME=/root
+ENV HOME=/root \
+    LANG=en_US.UTF-8
 
 COPY ./kubernetes.repo /etc/yum.repos.d/
 COPY ./fzf /usr/local/bin/fzf
