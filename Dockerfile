@@ -50,6 +50,16 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     tar zxvf /tmp/crane.tar.gz -O crane > /usr/local/bin/crane && \
     chmod 755 /usr/local/bin/crane && \
     rm -f /tmp/crane.tar.gz && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
+    unzip /tmp/awscliv2.zip -d /tmp/ && \
+    /tmp/aws/install && \
+    rm -rf /tmp/aws* && \
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
+    mv /tmp/eksctl /usr/local/bin && \
+    curl -L "https://github.com/wallix/awless/releases/download/v0.1.11/awless-linux-amd64.tar.gz" -o "/tmp/awless.tar.gz" && \
+    tar zxvf /tmp/awless.tar.gz -O awless > /usr/local/bin/awless && \
+    chmod 755 /usr/local/bin/awless && \
+    rm -f /tmp/awless.tar.gz && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
