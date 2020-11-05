@@ -16,11 +16,17 @@ My docker image of centos including container and cloud tools.
   * hadolint
   * kube-score
   * kube-ps1 (default is off. exec kubeon to enable)
+  * crane
+
+* Cloud
+  * az
+  * aws
+  * eksctl
+  * awless
 
 * Others
-  * az cli
   * git 2.24
-  * vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils jq stress-ng expect psmisc openssl
+  * vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool bridge-utils iptables nmap-ncat less screen tmux strace ltrace bash-completion bash-completion-extras yum-utils jq stress-ng expect psmisc openssl kbd unzip
 
 This image has these repositories for yum.
 
