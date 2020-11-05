@@ -67,7 +67,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo "alias ssh='ssh -o ServerAliveInterval=20 -o ServerAliveCountMax=20'" >> /root/.bashrc && \
     echo "complete -o default -F __start_kubectl k" >> /root/.bashrc && \
     echo "source /usr/local/bin/kube-ps1.sh" >> /root/.bashrc && \
-    echo -e 'echo $TERM | grep -q "^screen"\nif [ $? -eq 0 ]; then\n   export PS1='\''[\u@\h:$WINDOW:\w]$(kube_ps1)\$ '\''\nelse\n   export PS1='\''[\u@\h:\w]$(kube_ps1)\$ '\''\n   cd $HOME\nfi' >> /root/.bashrc && \
+    echo "source /usr/share/git-core/contrib/completion/git-prompt.sh" >> /root/.bashrc && \
+    echo -e 'echo $TERM | grep -q "^screen"\nif [ $? -eq 0 ]; then\n   export PS1='\''[\u@\h:$WINDOW:\w$(__git_ps1 " (%s)")]$(kube_ps1)\$ '\''\nelse\n   export PS1='\''[\u@\h:\w$(__git_ps1 " (%s)")]$(kube_ps1)\$ '\''\n   cd $HOME\nfi' >> /root/.bashrc && \
     echo "kubeoff" >> /root/.bashrc && \
     echo "escape ^Oo" >> /root/.screenrc && \
     echo 'shell "/bin/bash"' >> /root/.screenrc && \
