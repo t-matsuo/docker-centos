@@ -19,10 +19,11 @@ My docker image of centos including container and cloud tools.
   * crane
 
 * Cloud
-  * az
+  * az (yum install azure-cli)
   * aws
   * eksctl
   * awless
+  * gcloud (yum install google-cloud-sdk)
 
 * Others
   * git 2.24
