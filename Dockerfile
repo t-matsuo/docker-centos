@@ -60,6 +60,12 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     tar zxvf /tmp/awless.tar.gz -O awless > /usr/local/bin/awless && \
     chmod 755 /usr/local/bin/awless && \
     rm -f /tmp/awless.tar.gz && \
+    set -x; cd "$(mktemp -d)" && \
+    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" && \
+    tar zxvf krew.tar.gz && \
+    KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')" && \
+    "$KREW" install krew && \
+    echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /root/.bashrc && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias la='ls -la'" >> /root/.bashrc && \
