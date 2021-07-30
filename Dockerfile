@@ -12,7 +12,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo && \
     echo -e "[google-cloud-sdk]\nname=Google Cloud SDK\nbaseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el8-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg\n       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" > /etc/yum.repos.d/google-cloud-sdk.repo && \
     yum -y update && yum -y install epel-release && \
-    rpm -ivh https://download.docker.com/linux/centos/8/x86_64/stable/Packages/docker-ce-cli-19.03.13-3.el8.x86_64.rpm && \
+    rpm -ivh https://download.docker.com/linux/centos/8/x86_64/stable/Packages/docker-ce-cli-20.10.7-3.el8.x86_64.rpm https://download.docker.com/linux/centos/8/x86_64/stable/Packages/docker-scan-plugin-0.8.0-3.el8.x86_64.rpm && \
     yum install -y vim wget openssh-clients net-tools bind-utils tcpdump iproute iputils ethtool iptables nmap-ncat less screen tmux strace ltrace bash-completion yum-utils kubectl jq stress-ng expect psmisc openssl kbd unzip git && \
     curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash && \
     curl -L -o /usr/local/bin/kubectx https://github.com/ahmetb/kubectx/releases/download/`curl -s https://api.github.com/repos/ahmetb/kubectx/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/kubectx && \
@@ -21,7 +21,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     chmod 755 /usr/local/bin/kubens && \
     curl -L -o /etc/bash_completion.d/kubectx https://github.com/ahmetb/kubectx/raw/master/completion/kubectx.bash && \
     curl -L -o /etc/bash_completion.d/kubens https://github.com/ahmetb/kubectx/raw/master/completion/kubens.bash && \
-    curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v3.0.1 bash && \
+    curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v4.4.7 bash && \
     curl -L "https://github.com/docker/compose/releases/download/`curl -s https://api.github.com/repos/docker/compose/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     chmod 755 /usr/local/bin/docker-compose && \
     curl -L  "https://github.com/hadolint/hadolint/releases/download/`curl -s https://api.github.com/repos/hadolint/hadolint/releases | jq .[].name | grep -v rc | head -1 | sed 's/"//g'`/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint && \
@@ -63,6 +63,16 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/')" && \
     "$KREW" install krew && \
     echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> /root/.bashrc && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install neat && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install access-matrix && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install cert-manager && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install ctx && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install get-all && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install node-shell && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install ns && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install resource-capacity && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install sniff && \
+    PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH" kubectl krew install view-secret && \
     rm -f /root/anaconda-ks.cfg && \
     echo "alias vi='vim'" >> /root/.bashrc && \
     echo "alias ll='ls -l --color=auto'" >> /root/.bashrc && \
